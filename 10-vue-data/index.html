@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue data properties语法</title>
+    <!-- vue 3.x -->
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/lodash@4.17.20/lodash.min.js"></script>
+    <style>
+        .demo {
+            font-family: sans-serif;
+            border: 1px solid red;
+            border-radius: 2px;
+            padding: 20px 30px;
+            margin-top: 1em;
+            margin-bottom: 40px;
+            user-select: none;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+<div id="vue-data" class="demo">
+    vue data properties
+    <button @click="increment">increment</button>
+    <button @click="debounce">save</button>
+</div>
+<script type="text/javascript">
+    const DataApp = {
+        data() {
+            return {
+                count: 4,
+            }
+        }, methods: {
+            increment() {
+                this.count++;
+                console.log(this.count)
+            },
+            click: _.debounce(function () {
+                console.log('debounce')
+            }, 500)
+        }
+    }
+    const vm = Vue.createApp(DataApp).mount('#vue-data');
+    // 获取data的返回值
+    console.log(vm.$data.count)
+    console.log(vm.count);
+
+    vm.count = 5;
+    console.log(vm.$data.count);
+    vm.$data.count = 6;
+
+    console.log(vm.count);
+
+    vm.increment()
+    console.log(vm.count)
+</script>
+</body>
+</html>

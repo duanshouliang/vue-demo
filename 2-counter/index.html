@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Counter</title>
+    <!--
+    vue 2.x
+     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+     -->
+    <!-- vue 3.x -->
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+<div id="counter">Counter: {{counter}}</div>
+<script type="text/javascript">
+    const Counter = {
+        data() {
+            return {
+                counter: 0
+            }
+        },
+        // vue内置的一个声明周期函数
+        mounted(){
+            setInterval(()=>{
+                this.counter ++;
+            }, 100)
+        }
+    }
+
+    Vue.createApp(Counter).mount('#counter')
+</script>
+</body>
+</html>

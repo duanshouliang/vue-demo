@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-bin的使用</title>
+    <!-- vue 3.x -->
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        .demo {
+            font-family: sans-serif;
+            border: 1px solid red;
+            border-radius: 2px;
+            padding: 20px 30px;
+            margin-top: 1em;
+            margin-bottom: 40px;
+            user-select: none;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+<div id="bind-attribute" class="demo">
+  <span v-bind:title="message">
+    Hover your mouse over me for a few seconds to see my dynamically-bound
+    title!
+  </span>
+</div>
+<script type="text/javascript">
+    const AttributeBindingApp = {
+        data() {
+            return {
+                message: 'You loaded this page on '
+            }
+        }
+    }
+    Vue.createApp(AttributeBindingApp).mount('#bind-attribute')
+</script>
+</body>
+</html>

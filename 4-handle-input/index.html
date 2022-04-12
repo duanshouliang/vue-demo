@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v:on的使用</title>
+    <!-- vue 3.x -->
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        .demo {
+            font-family: sans-serif;
+            border: 1px solid #eee;
+            border-radius: 2px;
+            padding: 20px 30px;
+            margin-top: 1em;
+            margin-bottom: 40px;
+            user-select: none;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+<div id="event-handling" class="demo">
+  <p>
+      {{message}}
+  </p>
+    <button v-on:click="reverseMessage">反转</button>
+</div>
+<script type="text/javascript">
+    const EventHandling = {
+        data(){
+            return{
+                message:'Hello Vue.js'
+            }
+        },
+        methods:{
+            reverseMessage(){
+                this.message = this.message.split('').reverse().join('')
+            }
+        }
+    }
+    Vue.createApp(EventHandling).mount('#event-handling')
+</script>
+</body>
+</html>

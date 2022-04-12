@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue语法</title>
+    <!-- vue 3.x -->
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        .demo {
+            font-family: sans-serif;
+            border: 1px solid red;
+            border-radius: 2px;
+            padding: 20px 30px;
+            margin-top: 1em;
+            margin-bottom: 40px;
+            user-select: none;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+<div id="vue-grammar" class="demo">
+    <p>Using mustaches: {{msg}}</p>
+    <p>Using mustaches: <span v-html="msg"></span></p>
+    <div v-bind:id="dynamicId"></div>
+    <button v-bind:disabled="isButtonDisabled">button</button>
+    <p v-if="seen" style="color:blue">show me?</p>
+    <a v-bind:href="url">baidu</a>
+    <br/>
+    <a v-on:click="dosomething" v-bind:href="url">跳转</a>
+</div>
+<script type="text/javascript">
+    const App = {
+        data(){
+            return{
+                msg:'<span style="color:red">This should be red.</span>',
+                dynamicId:'100',
+                isButtonDisabled:true,
+                seen:true,
+                url:'https://www.baidu.com/'
+            }
+        },methods: {
+            dosomething(){
+                this.url='https://media-yapi-sit.zeekrlife.com/project/21/interface/api/813'
+            }
+        }
+    }
+    Vue.createApp(App).mount('#vue-grammar');
+</script>
+</body>
+</html>
