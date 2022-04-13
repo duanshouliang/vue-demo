@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue样式</title>
+    <!-- vue 3.x -->
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/lodash@4.17.20/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+
+    <style>
+        .demo {
+            font-family: sans-serif;
+            border: 1px solid red;
+            border-radius: 2px;
+            padding: 20px 30px;
+            margin-top: 1em;
+            margin-bottom: 40px;
+            user-select: none;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+<!--为什么v-bind:style 放在最外层的div上不生效 ?-->
+<div id="app"  v-bind:style="{color:activeColor,fontSize:fontsize}">
+    div block
+    <br/>
+    <div class="demo" v-bind:style="{color:activeColor,fontSize:fontsize}">style example</div>
+</div>
+
+<script type="text/javascript">
+    const styleApp = {
+        data(){
+            return{
+                activeColor:'red',
+                fontsize:'50px',
+            }
+        }
+    }
+    Vue.createApp(styleApp).mount('#app')
+</script>
+</body>
+</html>

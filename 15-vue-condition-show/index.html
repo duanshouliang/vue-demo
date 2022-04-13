@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue条件渲染</title>
+    <!-- vue 3.x -->
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/lodash@4.17.20/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+
+    <style>
+        .demo {
+            font-family: sans-serif;
+            border: 1px solid red;
+            border-radius: 2px;
+            padding: 20px 30px;
+            margin-top: 1em;
+            margin-bottom: 40px;
+            user-select: none;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+<!--为什么v-bind:style 放在最外层的div上不生效 ?-->
+<div id="app" style="color:red">
+
+    <!-- 使用v-if,v-else来控制单元素的展示，-->
+    <p>条件渲染</p>
+
+    <h1 v-if="awesome" :style="{color:'blue'}">Vue is awesome!</h1>
+    <h1 v-else :style="{color:'green'}">Oh no</h1>
+
+    <!-- 使用template和v-if,v-else来控制多元素的展示，-->
+    <template v-if="ok">
+        <h1>多元素使用template标签包裹，并使用v-if=ok的值为true时，展示h1</h1>
+        <p>1</p>
+        <p>2</p>
+        <p>3</p>
+        <p>4</p>
+    </template>
+    <template v-else>
+        <h1>多元素使用template标签包裹，并使用v-if=ok的值为false时展示h1</h1>
+        <p>11</p>
+        <p>22</p>
+        <p>33</p>
+        <p>44</p>
+    </template>
+
+    <!-- v-if,v-else-if,v-else的使用，-->
+    <div>
+        <div v-if="type == 'A'">A</div>
+        <div v-else-if="type=='B'">B</div>
+        <div v-else>other</div>
+    </div>
+
+
+    <!-- 使用v-show来控制元素是否展示,是基于css的display实现切换，v-show不支持template及v-else -->
+    <div v-show="show">使用v-show控制元素是否展示</div>
+
+</div>
+
+<script type="text/javascript">
+    const conditionShowApp = {
+        data() {
+            return {
+                awesome: true,
+                ok: false,
+                type: 'C',
+                show:true,
+            }
+        }
+    }
+    Vue.createApp(conditionShowApp).mount('#app')
+</script>
+</body>
+</html>

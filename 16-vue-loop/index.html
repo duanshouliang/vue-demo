@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue条件渲染</title>
+    <!-- vue 3.x -->
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/lodash@4.17.20/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+
+    <style>
+        .demo {
+            font-family: sans-serif;
+            border: 1px solid red;
+            border-radius: 2px;
+            padding: 20px 30px;
+            margin-top: 1em;
+            margin-bottom: 40px;
+            user-select: none;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+<!--为什么v-bind:style 放在最外层的div上不生效 ?-->
+<div id="app" class="demo">
+    <h1>v-for及v-for和v-if的结合使用</h1>
+    <h2>使用v-for实现列表的展示</h2>
+    <ul id="array-rendering">
+        <li v-for="item in items">
+            {{item.message}}
+        </li>
+    </ul>
+    <h2>使用v-for实现列表的展示,并将列表的索引渲染出来</h2>
+    <ul id="array-rendering2">
+        <li v-for="(item,index) in items">
+            {{parentMessage}} - {{index}} - {{item.message}}
+        </li>
+    </ul>
+    <h2>使用v-for对象（myJson）的展示</h2>
+    <ul id="v-for-object">
+        <li v-for="value in myJson">
+            {{value}}
+        </li>
+    </ul>
+    <ul id="v-for-object2">
+        <li v-for="(value, key) in myJson">
+            {{key}}: {{value}}
+        </li>
+    </ul>
+    <ul id="v-for-object3">
+        <li v-for="(value, key,index) in myJson">
+            {{index + 1}}.{{key}}: {{value}}
+        </li>
+    </ul>
+
+    <h2>使用v-for中指定一个唯一key</h2>
+    <ul id="v-for-object4">
+        <li v-for="(item,index) in items" :key="item.message">
+            {{index + 1}}.{{item.message}}
+        </li>
+    </ul>
+    <h2>使用v-for时，在计算属性(computed)中定义方法对数组进行过滤，展示偶数</h2>
+    <ul  id="v-for-object5">
+        <li v-for="n in eventNumbers" :key="n">
+            {{n}}
+        </li>
+    </ul>
+
+    <h2>嵌套循环中，计算属性不适用，可通过使用方法（methods）的方式展示嵌套数组，在方法中实现对数组进行过滤，展示偶数</h2>
+    <ul v-for="numbers in sets">
+        <li v-for="n in event2(numbers)" :key="n">
+            {{n}}
+        </li>
+    </ul>
+    <h2>v-for中使用范围</h2>
+    <p v-for="n in 10" :key="n">{{n}}</p>
+    <h2>v-for和template的结合使用方式</h2>
+    <ul>
+        <template v-for="item in items" :key="item.message">
+            <li>{{item.message}}</li>
+            <li class="divider" role="presentation"></li>
+        </template>
+    </ul>
+    <h2>组件中使用v-for</h2>
+    <div id="todo-list-example">
+        <form v-on:submit.prevent="addNewTodo">
+            <label for="new-todo">Add a todo</label>
+            <input
+                v-model="newTodoText"
+                id="new-todo"
+                placeholder="E.g. Feed the cat"
+            />
+            <button>ADD</button>
+        </form>
+        <!--使用数组的splice删除元素，splice(index,nums,elem)）-->
+        <ul>
+            <todo-item
+                    v-for="(todo, index) in todos"
+                    :key="todo.id"
+                    :title="todo.title"
+                    @remove="todos.splice(index, 1)"></todo-item>
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript">
+    const listApp = {
+        data(){
+            return{
+                items:[
+                    {message:'Foo'},
+                    {message:'Bar'}
+                ],
+                parentMessage:'Parent',
+                myJson:{
+                    name:'shuliang.duan',
+                    email:'slsir@outlook.com',
+                    address:'杭州'
+                },
+                numbers:[1,2,3,4,5,6],
+                sets:[[1,2,3,4,5,6,7],[8,9,10,11,12,13,14,15]],
+                newTodoText: '',
+                todos: [
+                    {
+                        id: 1,
+                        title: 'Do the dishes'
+                    },
+                    {
+                        id: 2,
+                        title: 'Take out the trash'
+                    },
+                    {
+                        id: 3,
+                        title: 'Mow the lawn'
+                    }
+                ],
+                nextTodoId: 4
+            }
+        },
+        computed:{
+            eventNumbers(){
+                return this.numbers.filter(number => number%2==0)
+            }
+        },
+        methods:{
+            event2(numbers){
+                return numbers.filter(number=>number%2==0)
+            },
+            addNewTodo(){
+                this.todos.push({
+                    id: this.nextTodoId++,
+                    title: this.newTodoText
+                })
+                this.newTodoText = ''
+            }
+        }
+    }
+
+    const app = Vue.createApp(listApp)
+
+    app.component('todo-item', {
+        template: `
+          <li>
+          {{ title }}
+          <button v-on:click="$emit('remove')">Remove</button>
+          </li>
+        `,
+        props: ['title'],
+        emits: ['remove']
+    })
+
+    app.mount('#app')
+
+</script>
+</body>
+</html>

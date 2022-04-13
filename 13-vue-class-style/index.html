@@ -18,41 +18,63 @@
             margin-bottom: 40px;
             user-select: none;
             overflow-x: auto;
+            /*color: red;*/
         }
     </style>
 </head>
 <body>
 
-<div id="class-style-example">
-    <div class="static" :class="{active:isActive, 'text-danger':hasError}"></div>
-    <div :class="classObj"></div>
-    <div :class="classObj2"></div>
+<!--<div id="class-style-example">-->
+<!--    <div class="static" :class="{active:isActive, 'text-danger':hasError}"></div>-->
+<!--    <div :class="classObj"></div>-->
+<!--    <div :class="classObj2"></div>-->
+<!--    <div :class="[activeClass, errorClass]"></div>-->
+<!--    <div :class="[isActive ? activeClass:'', errorClass]"></div>-->
+<!--    <div :class="[{active : isActive}, errorClass]"></div>-->
+<!--</div>-->
+<div :style="styleObject</style>" id="app" class="demo">
+    xxxxxxxxxxxxx
+<!--    <my-component class="bar"></my-component>-->
 </div>
+
 <script type="text/javascript">
     const app = {
         data(){
             return {
-                isActive:true,
-                hasError:true,
-                classObj:{
-                    isActive: true,
-                    hasError:true
-                },
-
+                styleObject: {
+                // isActive:true,
+                // hasError:true,
+                // classObj:{
+                //     isActive: true,
+                //     hasError:true
+                // },
+                // activeClass:'active',
+                // errorClass:'text-danger',
+                color: 'red',
+                fontsize: '30px'
+            }
             }
         },
-        computed:{
-            classObj2(){
-                console.log(this.isActive && !this.error)
-                return{
-                    active: this.isActive && !this.error,
-                    'text-danger': this.error && this.error.type === 'fatal'
-                }
-            }
-        }
+        // computed:{
+        //     classObj2(){
+        //         console.log(this.isActive && !this.error)
+        //         return{
+        //             active: this.isActive && !this.error,
+        //             'text-danger': this.error && this.error.type === 'fatal'
+        //         }
+        //     }
+        // }
     }
 
-    Vue.createApp(app).mount('#class-style-example');
+
+    const myapp = Vue.createApp(app);
+    // myapp.component('my-component', {
+    //     template: `
+    //                 <p :class="$attrs.class">Hi!</p><span>xxxxx</span>
+    //                 `
+    // })
+
+    myapp.mount('#app')
 </script>
 </body>
 </html>
